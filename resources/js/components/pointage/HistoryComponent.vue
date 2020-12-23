@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="col-xl-8 mb-5 mb-xl-0 text-white">
-            <listhistory-component :idprop="id" :ptrs="ptrs" :ptrsfull="ptrsfull" :ptrsbeta="ptrsbeta" :pagination="pagination" ></listhistory-component>
+            <listhistory-component :idprop="id" :ptrs="ptrs" :ptrsfull="ptrsfull" :ptrsbeta="ptrsbeta" :pagination="pagination" v-on:paginate="changepage($event)"></listhistory-component>
         </div>
     </div>
 </template>
@@ -96,6 +96,9 @@ export default {
                     this.ptrsbeta = data.data;
                 })
                 .catch(err => console.log(err));
+        },
+        changepage(p){
+            this.fetchPtrs(p);
         },
         makePagination(current_page,last_page,next_page_url,prev_page_url){
             let pagination={

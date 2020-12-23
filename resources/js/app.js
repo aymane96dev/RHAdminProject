@@ -58,6 +58,22 @@ Vue.component('materiel-component', require('./components/materiel/MaterielCompo
 Vue.component('materiel-list-component', require('./components/materiel/ListMatComponent.vue').default);
 Vue.component('addmateriel-component', require('./components/materiel/AddMatComponent.vue').default);
 Vue.component('editmateriel-component', require('./components/materiel/EditMatComponent.vue').default);
+Vue.component('solde-component', require('./components/solde/SoldeComponent.vue').default);
+Vue.component('solde-list-component', require('./components/solde/ListSoldeComponent.vue').default);
+Vue.component('addsolde-component', require('./components/solde/AddSoldeComponent.vue').default);
+Vue.component('editsolde-component', require('./components/solde/EditSoldeComponent.vue').default);
+Vue.component('contrat-component', require('./components/contrat/ContratComponent.vue').default);
+Vue.component('contrat-list-component', require('./components/contrat/ListContratComponent.vue').default);
+Vue.component('addctrt-component', require('./components/contrat/AddContratComponent.vue').default);
+Vue.component('editctrt-component', require('./components/contrat/EditContratComponent.vue').default);
+Vue.component('candidat-component', require('./components/candidat/CandidatComponent.vue').default);
+Vue.component('addcddt-component', require('./components/candidat/AddCandidatCpnt.vue').default);
+Vue.component('editcddt-component', require('./components/candidat/EditCandidatCpnt.vue').default);
+Vue.component('entretien-component', require('./components/entretien/EntretienComponent.vue').default);
+Vue.component('addentien-component', require('./components/entretien/AddEntretienCpnt.vue').default);
+Vue.component('editentien-component', require('./components/entretien/EditEntretienCpnt.vue').default);
+Vue.component('cancal-component', require('./components/calen_entretien/CanCalComponent.vue').default);
+Vue.component('entcal-component', require('./components/calen_entretien/EntCalComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

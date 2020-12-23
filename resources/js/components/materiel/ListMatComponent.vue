@@ -1,7 +1,7 @@
 <template>
     <b-card >
         <div class="row">
-           <h1 class="col-xl-8">Les matériaux de l'employé sélectionné {{ idprop }} :</h1>
+           <h1 class="col-xl-8">Les matériaux de l'employé sélectionné :</h1>
            <div class="col-xl-4 d-xl-flex justify-content-end align-items-start">
                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addMaterielModal">
                     <i class="fas fa-plus-circle"></i> &nbsp; Ajouter un matériel

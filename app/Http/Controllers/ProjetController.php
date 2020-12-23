@@ -10,11 +10,20 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjetController extends Controller
 {
-    public function view(){
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    public function view()
+    {
+        $this->authorize('view',Projet::class);
         return view('layouts.gestion.projet');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        $this->authorize('view',Projet::class);
         $validator= Validator::make($request->all(),[
             'description' => 'required|max:128',
             'date_creation' => 'required|date',
@@ -43,6 +52,7 @@ class ProjetController extends Controller
 
     public function edit(Request $request)
     {
+        $this->authorize('view',Projet::class);
         $validator= Validator::make($request->all(),[
             'id'=>'required|numeric',
             'description' => 'required|max:128',
@@ -68,6 +78,7 @@ class ProjetController extends Controller
 
     public function index($id)
     {
+        $this->authorize('view',Projet::class);
         $equipe = Equipe::find($id);
         $projets = $equipe->projets;
         return new ProjetResource($projets);
@@ -75,6 +86,7 @@ class ProjetController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('view',Projet::class);
         $projet = Projet::find($id);
         Projet::destroy($id);
         return new ProjetResource($projet);

@@ -8,7 +8,7 @@
                 </div>
                 <div class="offset-xl-2 col-xl-4 mb-2 col-12 col-sm-6">
                     <form @submit.prevent="ongetPtr()" >
-                    <input class="form-control form-control-sm text-dark" v-model="datePtr" @change="ongetPtr()" placeholder="Selectionnez une date" type="date" min="2020-01-01" v-bind:max="datenow">
+                    <input class="form-control form-control-sm text-dark" v-model="datePtr" @change="ongetPtr()" placeholder="Selectionnez une date" type="date" v-bind:max="datenow">
                     </form>
                 </div>
                 <div class="col-xl-4 d-sm-flex justify-content-end align-items-start col-6 d-block">

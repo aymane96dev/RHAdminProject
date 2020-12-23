@@ -179,7 +179,7 @@ class PointerController extends Controller
             if(count($pointers14H) > 1)
             {
                 $ptr14Hcolor = 'bg-primary';
-            }else if(!$pointers14H[0]->libelle === 'Pause café')
+            }else if($pointers14H[0]->libelle === 'Pause café')
             {
                 $ptr14Hcolor = 'bg-custom-grey';
             }else if($pointers14H[0]->libelle === 'Pause déjeuner')

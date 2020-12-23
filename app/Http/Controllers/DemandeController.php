@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class DemandeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function view()
     {
         return view('layouts.gestion.demande');
@@ -19,6 +24,7 @@ class DemandeController extends Controller
 
     public function validation()
     {
+        $this->authorize('view',Demande_conge::class);
         return view('layouts.gestion.validationConge');
     }
 
@@ -105,6 +111,7 @@ class DemandeController extends Controller
 
     public function update(Request $request)
     {
+        $this->authorize('view',Demande_conge::class);
         $demande = Demande_conge::find($request->input('id'));
         $demande->etat_validation = $request->input('etat');
         $date_debut = date_create($demande->date_debut);

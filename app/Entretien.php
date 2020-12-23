@@ -14,9 +14,4 @@ class Entretien extends Model
     {
         return $this->belongsTo('App\Candidat');
     }
-
-    public function recruteur()
-    {
-        return $this->belongsTo('App\Recruteur');
-    }
 }

@@ -15,14 +15,13 @@ class CreateCandidatTable extends Migration
     {
         Schema::create('candidats', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_entretien')->unsigned();
-            $table->integer('id_recruteur')->unsigned();
+            $table->integer('id_entretien')->unsigned()->nullable();
             $table->string('nom',20);
             $table->string('prenom',20);
             $table->string('num_tel',20);
             $table->string('email',32);
-            $table->string('cv',32);
-            $table->string('diplome',32);
+            $table->string('cv',64);
+            $table->string('diplome',64);
             $table->timestamps();
             $table->softDeletes();
         });

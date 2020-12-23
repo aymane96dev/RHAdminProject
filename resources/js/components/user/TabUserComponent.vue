@@ -39,7 +39,7 @@
                         <th>Nom</th>
                         <th>Email du compte</th>
                         <th>Role</th>
-                        <th v-if="role === 'administrateur'">Actions</th>
+                        <th v-if="role === 'administrateur' || user.name === name">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="text-dark">
@@ -48,8 +48,8 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.role }}</td> 
                         <td v-if="role === 'administrateur'">
-                            <a class="btn btn-sm btn-warning text-white" @click="editUser(user)" data-toggle="modal" data-target="#addModal" title="modifier" >modifier&nbsp;<i class="fas fa-edit fa-lg text-white"></i></a> &nbsp;
-                            <a class="btn  btn-sm btn-danger text-white" @click="deleteUser(user.id)" data-toggle="modal" data-target="#deleteModal" title="supprimer" >supprimer&nbsp;<i class="fas fa-trash fa-lg text-white"></i></a>
+                            <a v-if="user.role !== 'administrateur' || (user.role === 'administrateur' && user.name === name)" class="btn btn-sm btn-warning text-white" @click="editUser(user)" data-toggle="modal" data-target="#addModal" title="modifier" >modifier&nbsp;<i class="fas fa-edit fa-lg text-white"></i></a> &nbsp;
+                            <a v-if="user.role !== 'administrateur' || (user.role === 'administrateur' && user.name === name)" class="btn  btn-sm btn-danger text-white" @click="deleteUser(user.id)" data-toggle="modal" data-target="#deleteModal" title="supprimer" >supprimer&nbsp;<i class="fas fa-trash fa-lg text-white"></i></a>
                             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -148,7 +148,7 @@
 <script>
 export default {
     name:'user-table',
-    props: ['role'],
+    props: ['role','name'],
     data(){
         return{
             users:[],

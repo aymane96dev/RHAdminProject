@@ -44,7 +44,7 @@
                         <th>Date Intégration</th>
                         <th>Statut</th>
                         <th>Photo</th>
-                        <th v-if="role !== 'employe'">Actions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="text-dark">
@@ -58,9 +58,9 @@
                         <td>{{ employe.date_integration }}</td>
                         <td>{{ employe.statut }}</td>
                         <td><a class="text-center text-primary" @click="toggleModal(employe.photo)">Afficher</a></td>   
-                        <td v-if="role !== 'employe'">
+                        <td>
                             <a class="btn btn-sm btn-warning text-white mb-1" @click="editEmploye(employe)" data-toggle="modal" data-target="#addModal" title="modifier" >modifier &nbsp;<i class="fas fa-edit fa-lg"></i></a> &nbsp;
-                            <a class="btn btn-sm btn-danger text-white" @click="deleteEmploye(employe.id)" data-toggle="modal" data-target="#deleteModal" title="supprimer" >supprimer &nbsp;<i class="fas fa-trash fa-lg"></i></a>
+                            <a class="btn btn-sm btn-danger text-white" v-if="role !== 'employe'" @click="deleteEmploye(employe.id)" data-toggle="modal" data-target="#deleteModal" title="supprimer" >supprimer &nbsp;<i class="fas fa-trash fa-lg"></i></a>
                             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">

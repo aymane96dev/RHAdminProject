@@ -14,9 +14,4 @@ class Candidat extends Model
     {
         return $this->hasOne('App\Entretien');
     }
-
-    public function recruteur()
-    {
-        return $this->belongsTo('App\Recruteur');
-    }
 }

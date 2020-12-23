@@ -12,17 +12,28 @@ use Illuminate\Support\Facades\Validator;
 
 class MaterielController extends Controller
 {
-    public function view(){
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    public function view()
+    {
+        $this->authorize('view',Materiel::class);
         return view('layouts.gestion.materiel');
     }
 
-    public function index($id){
+    public function index($id)
+    {
+        $this->authorize('view',Materiel::class);
         $employe = Employe::find($id);
         $materiels = $employe->materiels;
         return new MaterielResource($materiels);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        $this->authorize('view',Materiel::class);
         $validator= Validator::make($request->all(),[
             'libelle' => 'required|max:32',
             'matricule' => 'required|max:64',
@@ -51,6 +62,7 @@ class MaterielController extends Controller
 
     public function edit(Request $request)
     {
+        $this->authorize('view',Materiel::class);
         $validator= Validator::make($request->all(),[
             'id'=>'required|numeric',
             'libelle' => 'required|max:32',
@@ -76,7 +88,9 @@ class MaterielController extends Controller
         return new MaterielResource($materiel);
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
+        $this->authorize('view',Materiel::class);
         $materiel = Materiel::find($id);
         Materiel::destroy($id);
         return new MaterielResource($materiel);

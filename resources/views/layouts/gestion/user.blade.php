@@ -47,7 +47,7 @@
 <div class="container-fluid mt--7">
     <div class="row justify-content-center">
         <div class="col-xl-12 mb-5 mb-xl-0 text-white" id="app">
-            <users-component role={{ Auth::user()->role }}></users-component>
+            <users-component role={{ Auth::user()->role }} name={{ Auth::user()->name }}></users-component>
         </div>
     </div>
 </div>  

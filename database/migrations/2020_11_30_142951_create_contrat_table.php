@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRecruteurTable extends Migration
+class CreateContratTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateRecruteurTable extends Migration
      */
     public function up()
     {
-        Schema::create('recruteurs', function (Blueprint $table) {
+        Schema::create('contrats', function (Blueprint $table) {
             $table->id();
-            $table->string('domaine',32);
-            $table->string('type_test',32);
+            $table->integer('employe_id')->unsigned();
+            $table->date('date_signature');
+            $table->float('salaire');
+            $table->string('type',64);
+            $table->string('duree',32)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +32,6 @@ class CreateRecruteurTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recruteurs');
+        Schema::dropIfExists('contrats');
     }
 }

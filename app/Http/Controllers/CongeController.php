@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CongeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function view()
     {
         return view('layouts.gestion.conge');
@@ -21,7 +26,9 @@ class CongeController extends Controller
         return view('layouts.gestion.calendrier');
     }
 
-    public function countconges(){
+    public function countconges()
+    {
+        $this->authorize('view',Conge::class);
         return view('layouts.gestion.countconges');
     }
 
@@ -54,6 +61,7 @@ class CongeController extends Controller
 
     public function calcultotal($id)
     {
+        $this->authorize('view',Conge::class);
         $nbrjrs = DB::table('conges')->where('employe_id','=',$id)->whereNull('deleted_at')->sum('nbr_jrs_acquis');
         $soldes = DB::table('conges')->where('employe_id','=',$id)->whereNull('deleted_at')->sum('solde');
         $nbr_conges = DB::table('conges')->where('employe_id','=',$id)->where('nbr_jrs_acquis','<>',null)
@@ -64,6 +72,7 @@ class CongeController extends Controller
 
     public function checkconges($id)
     {
+        $this->authorize('view',Conge::class);
         $conges=DB::table('demande_conges')
         ->join('conges', 'demande_conges.conge_id', '=', 'conges.id')
         ->select('conges.*','demande_conges.etat_validation')

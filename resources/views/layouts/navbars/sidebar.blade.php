@@ -84,12 +84,14 @@
                                     <span class="@if(Route::is('profile.edit')) text-white @endif">Votre profil</span>
                                 </a>
                             </li>
+                            @if(Auth::user()->role === 'administrateur')
                             <li class="nav-item @if(Route::is('user.index')) bg-danger @endif">
                                 <a class="nav-link " href="{{ route('user.index') }}">
                                     <i class="ni ni-single-02 text-green @if(Route::is('user.index')) text-white @endif"></i>
                                     <span class="@if(Route::is('user.index')) text-white @endif">Utilisateur</span>
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </li>
@@ -101,12 +103,14 @@
                     </a>
                 </li>
 
+                @if(Auth::user()->role === 'chef_projet' || Auth::user()->role === 'administrateur')
                 <li class="nav-item @if(Route::is('equipe')) bg-danger @endif">
                     <a class="nav-link" href="{{ route('equipe') }}">
                         <i class="fas fa-users text-primary @if(Route::is('equipe')) text-white @endif"></i> 
                         <span class="@if(Route::is('equipe')) text-white @endif">Gestion des équipes</span>
                     </a>
                 </li>
+                @endif
 
                 <li class="nav-item  @if(Route::is('competence')) bg-danger @endif">
                     <a class="nav-link" href="{{ route('competence') }}">
@@ -173,11 +177,6 @@
                                     <span class="@if(Route::is('valdemande')) text-white @endif">Validation des demandes de congé</span>
                                 </a>
                             </li>
-                            <li class="nav-item @if(Route::is('user.index')) bg-danger @endif">
-                                <a class="nav-link @if(Route::is('user.index')) text-white @endif" href="{{ route('user.index') }}">
-                                    <i class="far fa-calendar text-primary"></i>{{ __('Consulter les congés') }}
-                                </a>
-                            </li>
                             <li class="nav-item @if(Route::is('countconges')) bg-danger @endif">
                                 <a class="nav-link" href="{{ route('countconges') }}">
                                     <i class="fas fa-align-justify text-warning @if(Route::is('countconges')) text-white @endif"></i>
@@ -189,22 +188,6 @@
                     </div>
                 </li>
                 @if(Auth::user()->role === 'chef_projet' || Auth::user()->role === 'administrateur')
-               <!-- <li class="nav-item">
-                    <a class="nav-link" href="#navbar-pauses" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-pauses">
-                        <i class="fas fa-cogs" style="color: #7803e6;"></i>
-                        <span class="nav-link-text text-sm" >Gestion des pauses</span>
-                    </a>
-
-                    <div class="collapse @if(Route::is('profile.edit') || Route::is('user.index')) show @endif" id="navbar-pauses">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item @if(Route::is('user.index')) bg-danger @endif">
-                                <a class="nav-link @if(Route::is('user.index')) text-white @endif" href="{{ route('user.index') }}">
-                                    <i class="far fa-calendar text-primary text-danger"></i>{{ __('Calendrier des pauses') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="#navbar-ressources" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-ressources">
                         <i class="fas fa-cogs" style="color: #e6034f;"></i>
@@ -231,31 +214,51 @@
                 @endif
                 @if(Auth::user()->role === 'administrateur')
                 <li class="nav-item">
+                    <a class="nav-link" href="#navbar-finance" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-recrute">
+                        <i class="fas fa-cogs" style="color: #f4645f;"></i>
+                        <span class="nav-link-text text-sm" >Gestion du financement</span>
+                    </a>
+                    <div class="collapse @if(Route::is('solde') || Route::is('contrat')) show @endif" id="navbar-finance">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item @if(Route::is('solde')) bg-danger @endif">
+                                <a class="nav-link @if(Route::is('solde')) text-white @endif" href="{{ route('solde') }}">
+                                    <i class="fas fa-align-justify text-warning @if(Route::is('solde')) text-white @endif"></i>
+                                    <span class="@if(Route::is('solde')) text-white @endif">Les soldes</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if(Route::is('contrat')) bg-danger @endif">
+                                <a class="nav-link @if(Route::is('contrat')) text-white @endif" href="{{ route('contrat') }}">
+                                    <i class="fas fa-align-justify text-green @if(Route::is('contrat')) text-white @endif"></i>
+                                    <span class="@if(Route::is('contrat')) text-white @endif">Les contrats</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#navbar-recrute" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-recrute">
                         <i class="fas fa-cogs" style="color: #f4645f;"></i>
                         <span class="nav-link-text text-sm" >Gestion de recrutement</span>
                     </a>
 
-                    <div class="collapse @if(Route::is('profile.edit') || Route::is('user.index')) show @endif" id="navbar-recrute">
+                    <div class="collapse @if(Route::is('candidat') || Route::is('entretien') || Route::is('calentretien')) show @endif" id="navbar-recrute">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item @if(Route::is('profile.edit')) bg-danger @endif">
-                                <a class="nav-link @if(Route::is('profile.edit')) text-white @endif" href="{{ route('profile.edit') }}">
-                                    <i class="fas fa-align-justify text-warning"></i>{{ __('Liste des candidats') }}
+                            <li class="nav-item @if(Route::is('candidat')) bg-danger @endif">
+                                <a class="nav-link @if(Route::is('candidat')) text-white @endif" href="{{ route('candidat') }}">
+                                    <i class="fas fa-align-justify text-warning @if(Route::is('candidat')) text-white @endif"></i>
+                                    <span class="@if(Route::is('candidat')) text-white @endif">Les candidats</span>
                                 </a>
                             </li>
-                            <li class="nav-item @if(Route::is('user.index')) bg-danger @endif">
-                                <a class="nav-link @if(Route::is('user.index')) text-white @endif" href="{{ route('user.index') }}">
-                                    <i class="fas fa-align-justify text-green"></i>{{ __('Liste des entretiens') }}
+                            <li class="nav-item @if(Route::is('entretien')) bg-danger @endif">
+                                <a class="nav-link @if(Route::is('entretien')) text-white @endif" href="{{ route('entretien') }}">
+                                    <i class="fas fa-align-justify text-green @if(Route::is('entretien')) text-white @endif"></i>
+                                    <span class="@if(Route::is('entretien')) text-white @endif">Les entretiens</span>
                                 </a>
                             </li>
-                            <li class="nav-item @if(Route::is('profile.edit')) bg-danger @endif">
-                                <a class="nav-link @if(Route::is('profile.edit')) text-white @endif" href="{{ route('profile.edit') }}">
-                                    <i class="far fa-calendar text-primary"></i>{{ __('Calendrier des entretiens') }}
-                                </a>
-                            </li>
-                            <li class="nav-item @if(Route::is('user.index')) bg-danger @endif">
-                                <a class="nav-link @if(Route::is('user.index')) text-white @endif" href="{{ route('user.index') }}">
-                                    <i class="fas fa-align-justify text-info"></i>{{ __('Liste des recruteurs') }}
+                            <li class="nav-item @if(Route::is('calentretien')) bg-danger @endif">
+                                <a class="nav-link @if(Route::is('calentretien')) text-white @endif" href="{{ route('calentretien') }}">
+                                    <i class="far fa-calendar text-primary @if(Route::is('calentretien')) text-white @endif"></i>
+                                    <span class="@if(Route::is('calentretien')) text-white @endif">Calendrier des entretiens</span>
                                 </a>
                             </li>
                         </ul>

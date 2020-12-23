@@ -59,4 +59,9 @@ class Employe extends Model
     {
         return $this->hasMany('App\Demande_conge');
     }
+
+    public function soldes()
+    {
+        return $this->hasMany('App\Solde');
+    }
 }

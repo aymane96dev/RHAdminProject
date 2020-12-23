@@ -64,6 +64,35 @@ Route::post('api/addMateriel', 'MaterielController@store');
 Route::put('api/editMateriel', 'MaterielController@edit');
 Route::delete('api/delMateriel/{id}', 'MaterielController@destroy');
 
+Route::get('/solde', 'SoldeController@view')->name('solde');
+Route::post('api/addSolde', 'SoldeController@store');
+Route::get('api/soldes/{id}', 'SoldeController@index');
+Route::put('api/editSolde', 'SoldeController@edit');
+Route::delete('api/deleteSolde/{id}', 'SoldeController@delete');
+
+Route::get('/candidat', 'CandidatController@view')->name('candidat');
+Route::post('api/addCandidat', 'CandidatController@store');
+Route::get('api/candidats', 'CandidatController@index');
+Route::get('api/fullcandidats', 'CandidatController@all');
+Route::post('api/editCandidat', 'CandidatController@edit');
+Route::delete('api/deleteCandidat/{id}', 'CandidatController@destroy');
+
+Route::get('/entretien', 'EntretienController@view')->name('entretien');
+Route::post('api/addEntretien', 'EntretienController@store');
+Route::get('api/entretiens', 'EntretienController@index');
+Route::get('api/fullentretiens', 'EntretienController@all');
+Route::get('api/entretienCandidat/{id}', 'EntretienController@getcandidat');
+Route::put('api/editEntretien', 'EntretienController@edit');
+Route::delete('api/deleteEntretien/{id}', 'EntretienController@destroy');
+Route::get('/calEntretien', 'EntretienController@getcalendrier')->name('calentretien');
+Route::get('api/getentretien/{id}', 'EntretienController@getentretien');
+
+Route::get('/contrat', 'ContratController@view')->name('contrat');
+Route::post('api/addContrat', 'ContratController@store');
+Route::get('api/contrat/{id}', 'ContratController@index');
+Route::put('api/editContrat', 'ContratController@edit');
+Route::delete('api/delContrat/{id}', 'ContratController@destroy');
+
 Route::get('/conge', 'CongeController@view')->name('conge');
 Route::get('calendrier', 'CongeController@getCalendrier')->name('calendrier');
 Route::get('/countconges', 'CongeController@countconges')->name('countconges');

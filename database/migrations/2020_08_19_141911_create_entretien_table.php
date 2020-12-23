@@ -16,8 +16,6 @@ class CreateEntretienTable extends Migration
         Schema::create('entretiens', function (Blueprint $table) {
             $table->id();
             $table->integer('id_candidat')->unsigned();
-            $table->integer('id_recruteur')->unsigned();
-            $table->time('duree');
             $table->date('date');
             $table->string('description',128);
             $table->timestamps();

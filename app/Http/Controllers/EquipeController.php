@@ -11,32 +11,49 @@ use Illuminate\Support\Facades\Validator;
 
 class EquipeController extends Controller
 {
-    public function view(){
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    public function view()
+    {
+        $this->authorize('view',Equipe::class);
         return view('layouts.gestion.equipe');
     }
 
-    public function index(){
+    public function index()
+    {
+        $this->authorize('view',Equipe::class);
         $equipes = Equipe::all();
         return new EquipeResource($equipes);
     }
 
-    public function getEmps($id){
+    public function getEmps($id)
+    {
+        $this->authorize('view',Equipe::class);
         $equipe = Equipe::find($id);
         $employes = $equipe->employes;
         return new EquipeResource($employes);
     }
 
-    public function getDispEmps(){
+    public function getDispEmps()
+    {
+        $this->authorize('view',Equipe::class);
         $employes = DB::table('employes')->where('equipe_id','=',null)->where('deleted_at','=',null)->get('*');
         return new EquipeResource($employes);
     }
 
-    public function getIndispEmps($id){
+    public function getIndispEmps($id)
+    {
+        $this->authorize('view',Equipe::class);
         $employes = DB::table('employes')->where('equipe_id','=',$id)->where('deleted_at','=',null)->get('*');
         return new EquipeResource($employes);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        $this->authorize('view',Equipe::class);
         $validator= Validator::make($request->all(),[
             'nom' => 'required|max:32',
             'mission' => 'required|max:64',
@@ -66,7 +83,9 @@ class EquipeController extends Controller
         return new EquipeResource($equipe);
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
+        $this->authorize('view',Equipe::class);
         $validator= Validator::make($request->all(),[
             'id' => 'required|numeric',
             'nom' => 'required|max:32',
@@ -104,6 +123,7 @@ class EquipeController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('view',Equipe::class);
         $equipe=Equipe::find($id);
         Equipe::destroy($id);
         $emps = DB::table('employes')->where('equipe_id','=',$id)->where('deleted_at','=',null)->get('*');

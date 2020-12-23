@@ -73,6 +73,9 @@ export default {
             }else{
                 this.ptrs = this.ptrsfull;
             }
+        },
+        fetchPtrs(p){
+            this.$emit('paginate',p)
         }
     }
 }

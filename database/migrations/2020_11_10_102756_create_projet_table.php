@@ -18,6 +18,7 @@ class CreateProjetTable extends Migration
             $table->string('description',128);
             $table->date('date_creation');
             $table->date('date_livraison');
+            $table->string('etat',32);
             $table->timestamps();
             $table->softDeletes();
         });

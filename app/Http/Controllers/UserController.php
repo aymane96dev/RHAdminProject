@@ -6,11 +6,18 @@ use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the users
      *
@@ -19,6 +26,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('view',User::class);
+
         $nbr = User::withTrashed()
                 ->where('deleted_at', null)
                 ->count();
@@ -30,16 +39,19 @@ class UserController extends Controller
 
     public function list()
     {
+        $this->authorize('view',User::class);
         return UserResource::collection(User::paginate(5));
     }
 
     public function full()
     {
+        $this->authorize('view',User::class);
         return UserResource::collection(User::all());
     }
 
     public function store(Request $request)
     {
+        $this->authorize('view',User::class);
         $validator= Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:32'],
@@ -63,8 +75,9 @@ class UserController extends Controller
 
     }
 
-    public function edit(Request $request){
-
+    public function edit(Request $request)
+    {
+        $this->authorize('view',User::class);
         $validator= Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:32'],
@@ -84,8 +97,9 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function destroy($id){
-
+    public function destroy($id)
+    {
+        $this->authorize('view',User::class);
         $user = User::find($id);
         User::destroy($id);
 

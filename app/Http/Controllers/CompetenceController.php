@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CompetenceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function view()
     {
         return view('layouts.gestion.competence');
